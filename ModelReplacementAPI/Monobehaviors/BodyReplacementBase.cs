@@ -648,6 +648,15 @@ namespace ModelReplacement
         private Bounds GetBounds(GameObject model)
         {
             Bounds bounds = new Bounds();
+
+            var skinnedMeshRenderers = model.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+            if (skinnedMeshRenderers.Length == 0)
+            {
+                // 如果没有 SkinnedMeshRenderer，返回一个默认的 Bounds
+                return bounds;
+            }
+            
             IEnumerable<Bounds> allBounds = model.GetComponentsInChildren<SkinnedMeshRenderer>().Select(r => r.bounds);
 
             float maxX = allBounds.OrderByDescending(x => x.max.x).First().max.x;
