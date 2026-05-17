@@ -17,7 +17,7 @@ namespace ModelReplacement
     {
         public const string GUID = "meow.ModelReplacementAPI";
         public const string NAME = "ModelReplacementAPI";
-        public const string VERSION = "2.4.12";
+        public const string VERSION = "2.4.19";
         public const string WEBSITE = "https://github.com/BunyaPineTree/LethalCompany_ModelReplacementAPI";
     }
 
@@ -342,6 +342,9 @@ namespace ModelReplacement
 
             private static void ManageBodyReplacements(PlayerControllerB player)
             {
+                if (StartOfRound.Instance.allPlayerScripts[player.playerClientId] != player)
+                    return;
+
                 BodyReplacementBase currentReplacement = player.thisPlayerBody.gameObject.GetComponent<BodyReplacementBase>();
 
                 if (currentReplacement != null && RegisteredModelReplacementExceptions.Contains(currentReplacement.GetType()))
